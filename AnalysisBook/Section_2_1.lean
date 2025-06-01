@@ -126,27 +126,35 @@ theorem six_ne_two' : (6:Nat) ≠ 2 := by
 
 Axiom 2.5 (principle of mathematical induction).
 ```lean
-theorem induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P (n++)) : ∀ n, P n := by
+theorem induction (P : Nat → Prop) (hbase : P 0)
+    (hind : ∀ n, P n → P (n++)) : ∀ n, P n := by
   intro n
   induction n with
   | zero => exact hbase
   | succ n ih => exact hind _ ih
 
-abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) : Nat → Nat := fun n ↦ match n with
+abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) :
+    Nat → Nat := fun n ↦ match n with
 | 0 => c
 | n++ => f n (Nat.recurse f c n)
 ```
 
 Proposition 2.1.16 (recursive definitions).
 ```lean
-theorem recurse_zero (f: Nat → Nat → Nat) (c: Nat) : Nat.recurse f c 0 = c := by rfl
+theorem recurse_zero (f: Nat → Nat → Nat) (c: Nat) :
+    Nat.recurse f c 0 = c := by rfl
 
-theorem recurse_succ (f: Nat → Nat → Nat) (c: Nat) (n: Nat) : Nat.recurse f c (n++) = f n (Nat.recurse f c n) := by rfl
+theorem recurse_succ (f: Nat → Nat → Nat) (c: Nat)
+    (n: Nat) :
+    Nat.recurse f c (n++) = f n (Nat.recurse f c n) := by rfl
 ```
 
 This proof is written to follow the structure of the original text.
 ```lean
-theorem eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) : (a 0 = c ∧ ∀ n, a (n++) = f n (a n)) ↔ a = Nat.recurse f c := by
+theorem eq_recurse (f: Nat → Nat → Nat) (c: Nat)
+    (a: Nat → Nat) :
+    (a 0 = c ∧ ∀ n, a (n++) = f n (a n)) ↔
+    a = Nat.recurse f c := by
   constructor
   . intro ⟨ h0, hsucc ⟩
     apply funext; apply induction
@@ -163,7 +171,9 @@ theorem eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) : (a 0 = c
 
 Proposition 2.1.16 (recursive definitions).
 ```lean
-theorem recurse_uniq (f: Nat → Nat → Nat) (c: Nat) : ∃! (a: Nat → Nat), a 0 = c ∧ ∀ n, a (n++) = f n (a n) := by
+theorem recurse_uniq (f: Nat → Nat → Nat) (c: Nat) :
+    ∃! (a: Nat → Nat),
+    a 0 = c ∧ ∀ n, a (n++) = f n (a n) := by
 apply ExistsUnique.intro (Nat.recurse f c)
 . constructor
   . exact recurse_zero _ _

@@ -15,3 +15,10 @@ jobs:
       - name: build output
         run: |
           lake exe analysis-book
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_out/html-multi'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

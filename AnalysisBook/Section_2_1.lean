@@ -21,7 +21,7 @@ I have attempted to make the translation as faithful a paraphrasing as possible 
 Main constructions and results of this section:
 
 - Definition of the "Chapter 2" natural numbers, `Chapter2.Nat`
-- Establishment of the Peano axioms for `Chapter2.Nat`
+- Establishment of the {index}[Peano axioms] for `Chapter2.Nat`
 - Recursive definitions for `Chapter2.Nat`
 
 Note: at the end of this Chapter, the `Chapter2.Nat` class will be deprecated in favor of the standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of `Chapter2.Nat` "by hand" for pedagogical purposes.

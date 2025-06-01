@@ -29,23 +29,34 @@ Note: at the end of this Chapter, the `Chapter2.Nat` class will be deprecated in
 
 ```lean
 namespace Chapter2
+```
 
-/-- Assumption 2.6 (Existence of natural numbers) -/
+Assumption 2.6 (Existence of natural numbers)
+```lean
 inductive Nat where
 | zero : Nat
 | succ : Nat → Nat
-deriving Repr, DecidableEq  -- this allows `decide` to work on `Nat`
+deriving Repr, DecidableEq
+```
+The last line allows `decide` to work on Nat
 
-/-- Axiom 2.1 (0 is a natural number) -/
+
+Axiom 2.1 (0 is a natural number)
+```lean
 instance Nat.zero_inst : Zero Nat := ⟨ Nat.zero ⟩
 #check (0:Nat)
+```
 
-/- Axiom 2.2 (Successor of a natural number is a natural number) -/
+Axiom 2.2 (Successor of a natural number is a natural number)
+```lean
 postfix:100 "++" => Nat.succ
 #check (fun n ↦ n++)
+```
 
-
-/-- Definition 2.1.3 (Definition of the numerals 0, 1, 2, etc.). Note: to avoid ambiguity, one may need to use explicit casts such as (0:Nat), (1:Nat), etc. to refer to this Chapter's version of the natural numbers. -/
+Definition 2.1.3 (Definition of the numerals 0, 1, 2, etc.).
+Note: to avoid ambiguity, one may need to use explicit casts such as (0:Nat), (1:Nat), etc.
+to refer to this Chapter's version of the natural numbers.
+```lean
 instance Nat.ofnat_inst {n:_root_.Nat} : OfNat Nat n where
   ofNat := _root_.Nat.rec 0 (fun _ n ↦ n++) n
 
@@ -55,36 +66,49 @@ lemma zero_succ : 0++ = 1 := by rfl
 
 lemma one_succ : 1++ = 2 := by rfl
 #check (2:Nat)
+```
 
-/-- Proposition 2.1.4 (3 is a natural number)-/
+Proposition 2.1.4 (3 is a natural number)
+```lean
 lemma two_succ : 2++ = 3 := by rfl
 #check (3:Nat)
+```
 
-/-- Axiom 2.3 (0 is not the successor of any natural number) -/
+Axiom 2.3 (0 is not the successor of any natural number)
+
+```lean
 theorem succ_ne (n:Nat) : n++ ≠ 0 := by
   by_contra h
   simp only [reduceCtorEq] at h
+```
 
-/-- Proposition 2.1.6 (4 is not equal to zero) -/
+Proposition 2.1.6 (4 is not equal to zero)
+```lean
 theorem four_ne : (4:Nat) ≠ 0 := by
   -- By definition, 4 = 3++.
   change 3++ ≠ 0
   -- By axiom 2.3, 3++ is not zero.
   exact succ_ne _
+```
 
-/-- Axiom 2.4 (Different natural numbers have different successors) -/
+Axiom 2.4 (Different natural numbers have different successors)
+```lean
 theorem succ_cancel {n m:Nat} (hnm: n++ = m++) : n = m := by
   rwa [Nat.succ.injEq] at hnm
+```
 
-/-- Axiom 2.4 (Different natural numbers have different successors) -/
+Axiom 2.4 (Different natural numbers have different successors)
+```lean
 theorem succ_ne_succ (n m:Nat) : n ≠ m → n++ ≠ m++ := by
   intro h
   contrapose! h
   exact succ_cancel h
+```
 
-/-- Proposition 2.1.8 (6 is not equal to 2) -/
+Proposition 2.1.8 (6 is not equal to 2)
+This proof is written to follow the structure of the original text.
+```lean
 theorem six_ne_two : (6:Nat) ≠ 2 := by
--- this proof is written to follow the structure of the original text.
   by_contra h
   change 5++ = 1++ at h
   replace h := succ_cancel h
@@ -92,12 +116,16 @@ theorem six_ne_two : (6:Nat) ≠ 2 := by
   replace h := succ_cancel h
   have := four_ne
   contradiction
+```
 
-/-- One can also prove this sort of result by the `decide` tactic -/
+One can also prove this sort of result by the `decide` tactic
+```lean
 theorem six_ne_two' : (6:Nat) ≠ 2 := by
   decide
+```
 
-/-- Axiom 2.5 (principle of mathematical induction). -/
+Axiom 2.5 (principle of mathematical induction).
+```lean
 theorem induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P (n++)) : ∀ n, P n := by
   intro n
   induction n with
@@ -107,18 +135,20 @@ theorem induction (P : Nat → Prop) (hbase : P 0) (hind : ∀ n, P n → P (n++
 abbrev Nat.recurse (f: Nat → Nat → Nat) (c: Nat) : Nat → Nat := fun n ↦ match n with
 | 0 => c
 | n++ => f n (Nat.recurse f c n)
+```
 
-/-- Proposition 2.1.16 (recursive definitions). -/
+Proposition 2.1.16 (recursive definitions).
+```lean
 theorem recurse_zero (f: Nat → Nat → Nat) (c: Nat) : Nat.recurse f c 0 = c := by rfl
 
-/-- Proposition 2.1.16 (recursive definitions). -/
 theorem recurse_succ (f: Nat → Nat → Nat) (c: Nat) (n: Nat) : Nat.recurse f c (n++) = f n (Nat.recurse f c n) := by rfl
+```
 
-/-- Proposition 2.1.16 (recursive definitions). -/
+This proof is written to follow the structure of the original text.
+```lean
 theorem eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) : (a 0 = c ∧ ∀ n, a (n++) = f n (a n)) ↔ a = Nat.recurse f c := by
   constructor
   . intro ⟨ h0, hsucc ⟩
-    -- this proof is written to follow the structure of the original text.
     apply funext; apply induction
     . exact h0
     intro n hn
@@ -128,9 +158,11 @@ theorem eq_recurse (f: Nat → Nat → Nat) (c: Nat) (a: Nat → Nat) : (a 0 = c
   constructor
   . exact recurse_zero _ _
   exact recurse_succ _ _
+```
 
 
-/-- Proposition 2.1.16 (recursive definitions). -/
+Proposition 2.1.16 (recursive definitions).
+```lean
 theorem recurse_uniq (f: Nat → Nat → Nat) (c: Nat) : ∃! (a: Nat → Nat), a 0 = c ∧ ∀ n, a (n++) = f n (a n) := by
 apply ExistsUnique.intro (Nat.recurse f c)
 . constructor

@@ -59,6 +59,7 @@ instance PreInt.instSetoid : Setoid PreInt where
         _ = (e + b) + (c + d) := by abel
       exact Nat.add_right_cancel this
     }
+```
 
 ```lean
 @[simp]
@@ -80,6 +81,7 @@ theorem Int.eq (a b c d:ℕ): a — b = c — d ↔ a + d = c + b := by
   intro h; exact Quotient.sound h
 ```
 
+```lean
 /-- Definition 4.1.1 (Integers) -/
 theorem Int.eq_diff (n:Int) : ∃ a b, n = a — b := by
   apply Quot.ind _ n; intro ⟨ a, b ⟩
@@ -154,7 +156,9 @@ example : 3 = 3 — 0 := by rfl
 
 example : 3 = 4 — 1 := by
   rw [Int.ofNat_eq, Int.eq]
+```
 
+```lean
 /-- Definition 4.1.4 (Negation of integers) / Exercise 4.1.2 -/
 instance Int.neg_inst : Neg Int where
   neg := Quotient.lift (fun ⟨ a, b ⟩ ↦ b — a) (by
@@ -221,7 +225,9 @@ instance Int.monoid_inst : Monoid Int where
     ring
   one_mul := by sorry
   mul_one := by sorry
+```
 
+```lean
 /-- Proposition 4.1.6 (laws of algebra) / Exercise 4.1.4 -/
 instance Int.commRing_inst : CommRing Int where
   add_comm := by sorry
@@ -302,23 +308,24 @@ theorem Int.sq_nonneg (n:Int) : n*n ≥ 0 := by sorry
 /-- Exercise 4.1.9 -/
 theorem Int.sq_nonneg' (n:Int) : ∃ (m:Nat), n*n = m := by sorry
 
-/-- Not in textbook: create an equivalence between Int and ℤ.  This requires some familiarity with the API for Mathlib's version of the integers. -/
-abbrev Int.equivInt : Int ≃ ℤ where
-  toFun := sorry
-  invFun := sorry
-  left_inv n := sorry
-  right_inv n := sorry
+-- Porting note: Fails with INTERNAL PANIC: executed 'sorry' in verso
+-- /-- Not in textbook: create an equivalence between Int and ℤ.  This requires some familiarity with the API for Mathlib's version of the integers. -/
+-- abbrev Int.equivInt : Int ≃ ℤ where
+--   toFun := by sorry
+--   invFun := by sorry
+--   left_inv := by sorry
+--   right_inv := by sorry
 
-/-- Not in textbook: equivalence preserves order -/
-abbrev Int.equivInt_order : Int ≃o ℤ where
-  toEquiv := Int.equivInt
-  map_rel_iff' := by sorry
+-- /-- Not in textbook: equivalence preserves order -/
+-- abbrev Int.equivInt_order : Int ≃o ℤ where
+--   toEquiv := Int.equivInt
+--   map_rel_iff' := by sorry
 
-/-- Not in textbook: equivalence preserves ring operations -/
-abbrev Int.equivInt_ring : Int ≃+* ℤ where
-  toEquiv := Int.equivInt
-  map_add' := by sorry
-  map_mul' := by sorry
+-- /-- Not in textbook: equivalence preserves ring operations -/
+-- abbrev Int.equivInt_ring : Int ≃+* ℤ where
+--   toEquiv := Int.equivInt
+--   map_add' := by sorry
+--   map_mul' := by sorry
 
 end Section_4_1
 ```

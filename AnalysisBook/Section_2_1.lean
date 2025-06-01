@@ -14,12 +14,6 @@ set_option pp.rawOnError true
 
 #doc (Manual) "The Peano Axioms" =>
 
-
-```lean
-
-/-!
-# Analysis I, Section 2.1
-
 This file is a translation of Section 2.1 of Analysis I to Lean 4.  All numbering refers to the original text.
 
 I have attempted to make the translation as faithful a paraphrasing as possible of the original text.  When there is a choice between a more idiomatic Lean solution and a more faithful translation, I have generally chosen the latter.  In particular, there will be places where the Lean code could be "golfed" to be more elegant and idiomatic, but I have consciously avoided doing so.
@@ -32,8 +26,8 @@ Main constructions and results of this section:
 
 Note: at the end of this Chapter, the `Chapter2.Nat` class will be deprecated in favor of the standard Mathlib class `_root_.Nat`, or `ℕ`.  However, we will develop the properties of `Chapter2.Nat` "by hand" for pedagogical purposes.
 
--/
 
+```lean
 namespace Chapter2
 
 /-- Assumption 2.6 (Existence of natural numbers) -/

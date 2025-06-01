@@ -13,6 +13,7 @@ import AnalysisBook.Section_2_3
 import AnalysisBook.Section_2_epilogue
 import AnalysisBook.Section_3_1
 import AnalysisBook.Section_4_1
+import AnalysisBook.Section_4_2
 
 
 -- This gets access to most of the manual genre (which is also useful for textbooks)
@@ -54,6 +55,8 @@ authors := ["Terence Tao"]
 # Integers and rationals
 
 {include 2 AnalysisBook.Section_4_1}
+
+{include 2 AnalysisBook.Section_4_2}
 
 # Index
 %%%

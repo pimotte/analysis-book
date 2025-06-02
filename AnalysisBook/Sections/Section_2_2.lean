@@ -1,21 +1,6 @@
 import Mathlib.Tactic
-import AnalysisBook.Section_2_1
-import VersoManual
+import Analysis.Section_2_1
 
-
--- This gets access to most of the manual genre (which is also useful for textbooks)
-open Verso.Genre Manual
-
--- This gets access to Lean code that's in code blocks, elaborated in the same process and
--- environment as Verso
-open Verso.Genre.Manual.InlineLean
-
-
-set_option pp.rawOnError true
-
-#doc (Manual) "Addition" =>
-
-```lean
 /-!
 # Analysis I, Section 2.2
 
@@ -36,7 +21,7 @@ namespace Chapter2
 /-- Definition 2.2.1. (Addition of natural numbers). -/
 abbrev Nat.add (n m : Nat) : Nat := Nat.recurse (fun _ sum ↦ sum++) m n
 
-instance Nat.add_inst : Add Nat where
+instance Nat.instAdd : Add Nat where
   add := Nat.add
 
 theorem zero_add (m: Nat) : 0 + m = m := recurse_zero (fun _ sum ↦ sum++) _
@@ -150,11 +135,11 @@ lemma uniq_succ_eq (a:Nat) (ha: a.isPos) : ∃! b, b++ = a := by
   sorry
 
 /-- Definition 2.2.11 (Ordering of the natural numbers) -/
-instance Nat.LE_inst : LE Nat where
+instance Nat.instLE : LE Nat where
   le := fun n m ↦ ∃ a:Nat, m = n + a
 
 /-- Definition 2.2.11 (Ordering of the natural numbers) -/
-instance Nat.LT_inst : LT Nat where
+instance Nat.instLT : LT Nat where
   lt := fun n m ↦ (∃ a:Nat, m = n + a) ∧ n ≠ m
 
 lemma Nat.le_iff (n m:Nat) : n ≤ m ↔ ∃ a:Nat, m = n + a := by rfl
@@ -292,4 +277,3 @@ theorem induction_from {n:Nat} {P: Nat → Prop} (hind: ∀ m, P m → P (m++)) 
 
 
 end Chapter2
-```

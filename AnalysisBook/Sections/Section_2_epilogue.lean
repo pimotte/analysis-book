@@ -1,21 +1,5 @@
 import Mathlib.Tactic
-import AnalysisBook.Section_2_3
-import VersoManual
-
-
--- This gets access to most of the manual genre (which is also useful for textbooks)
-open Verso.Genre Manual
-
--- This gets access to Lean code that's in code blocks, elaborated in the same process and
--- environment as Verso
-open Verso.Genre.Manual.InlineLean
-
-
-set_option pp.rawOnError true
-
-#doc (Manual) "Natural number equivalence" =>
-
-```lean
+import Analysis.Section_2_3
 
 /-!
 # Analysis I, Chapter 2 epilogue
@@ -72,4 +56,3 @@ abbrev Chapter2.Nat.equivNat_ring : Chapter2.Nat ≃+* ℕ where
 
 lemma Chapter2.Nat.pow_eq_pow (n m : Chapter2.Nat) : n.toNat ^ m.toNat = n^m := by
   sorry
-```

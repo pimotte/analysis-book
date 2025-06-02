@@ -12,4 +12,4 @@ lean_lib «AnalysisBook» where
 
 @[default_target]
 lean_exe "analysis-book" where
-  root := `Main
+  root := `AnalysisBook

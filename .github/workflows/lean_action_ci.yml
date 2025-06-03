@@ -8,14 +8,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v4
       - uses: leanprover/lean-action@v1
+        working-directory: ./analysis-book
       - name: build output
+        working-directory: ./analysis-book
         run: |
           lake exe analysis-book
       - name: Upload website
+        working-directory: ./analysis-book
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_out/html-multi'
@@ -37,5 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
+        working-directory: ./analysis-book
         id: deployment
         uses: actions/deploy-pages@v4

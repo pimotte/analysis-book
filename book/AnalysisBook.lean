@@ -8,12 +8,12 @@ open Output Html Template Theme in
 def theme : Theme := Theme.default
 
 
-def_literate_page sec21 from Section_2_1 in "AnalysisBook/Sections" as "Literate Lean page"
+def_literate_page sec21 from Analysis.Section_2_1 in "../analysis" as "Literate Lean page"
 
 
 
 def demoSite : Site := site AnalysisBook.Home /
-  "PHOAS" litPage
+  "PHOAS" sec21
 
 
 def main := blogMain theme demoSite

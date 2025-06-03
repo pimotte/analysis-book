@@ -13,7 +13,7 @@ def_literate_page sec21 from Analysis.Section_2_1 in "../analysis" as "Literate 
 
 
 def demoSite : Site := site AnalysisBook.Home /
-  "PHOAS" sec21
+  "sec21" sec21
 
 
 def main := blogMain theme demoSite

@@ -14,8 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Change directory
-      - uses: leanprover/lean-action@v1
+      - uses: leanprover/lean-action@v1 # setup elan and fetch the Mathlib cache
+        with:
+          auto-config: false # don't automatically run lake build, lake test, lake lint
       - name: build output
         run: |
           lake exe analysis-book

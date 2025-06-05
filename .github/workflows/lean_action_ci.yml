@@ -15,8 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Change directory
-        run: |
-          cd book
       - uses: leanprover/lean-action@v1
       - name: build output
         run: |

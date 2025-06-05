@@ -1,21 +1,5 @@
 import Mathlib.Tactic
-import AnalysisBook.Section_2_2
-import VersoManual
-
-
--- This gets access to most of the manual genre (which is also useful for textbooks)
-open Verso.Genre Manual
-
--- This gets access to Lean code that's in code blocks, elaborated in the same process and
--- environment as Verso
-open Verso.Genre.Manual.InlineLean
-
-
-set_option pp.rawOnError true
-
-#doc (Manual) "Multiplication" =>
-
-```lean
+import Analysis.Section_2_2
 
 /-!
 # Analysis I, Section 2.3
@@ -36,7 +20,7 @@ namespace Chapter2
 /-- Definition 2.3.1 (Multiplication of natural numbers) -/
 abbrev Nat.mul (n m : Nat) : Nat := Nat.recurse (fun _ prod ↦ prod + m) 0 n
 
-instance Nat.mul_inst : Mul Nat where
+instance Nat.instMul : Mul Nat where
   mul := Nat.mul
 
 /-- Definition 2.3.1 (Multiplication of natural numbers) -/
@@ -93,7 +77,7 @@ theorem mul_assoc (a b c: Nat) : (a * b) * c = a * (b * c) := by
   sorry
 
 /-- (Not from textbook)  Nat is a commutative semiring. -/
-instance Nat.commSemiring_inst : CommSemiring Nat where
+instance Nat.instCommSemiring : CommSemiring Nat where
   left_distrib := mul_add
   right_distrib := add_mul
   zero_mul := zero_mul
@@ -154,7 +138,7 @@ theorem exists_div_mod (n :Nat) {q: Nat} (hq: q.isPos) : ∃ m r: Nat, 0 ≤ r �
 /-- Definition 2.3.11 (Exponentiation for natural numbers) -/
 abbrev Nat.pow (m n: Nat) : Nat := Nat.recurse (fun _ prod ↦ prod * m) 1 n
 
-instance Nat.pow_inst : HomogeneousPow Nat where
+instance Nat.instPow : HomogeneousPow Nat where
   pow := Nat.pow
 
 /-- Definition 2.3.11 (Exponentiation for natural numbers) -/
@@ -168,5 +152,6 @@ theorem sq_add_eq (a b: Nat) : (a + b) ^ 2 = a ^ 2 + 2 * a * b + b ^ 2 := by
   sorry
 
 
+
+
 end Chapter2
-```

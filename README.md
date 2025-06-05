@@ -1,5 +1,12 @@
 # analysis-book
 
+Change directory to `analysis`
+Build the doc-gen
+```
+lake exe Analysis:docs
+```
+
+Change the working directory to `./book/`
 Build:
 ```
 lake exe analysis-book
@@ -7,6 +14,6 @@ lake exe analysis-book
 
 View:
 ```
-python3 -m http.server 8880 --directory _out/html-multi
+python3 serve.py
 ```
-then visit `http://localhost:8880`
+then visit `http://localhost:8000`

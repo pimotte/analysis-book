@@ -46,7 +46,7 @@ jobs:
           ~/.elan/bin/lake exe analysis-book
       - name: Copy docs to analysis-book
         run: |
-          cp -r ../.lake/build/doc _site/docs
+          cp -r ../analysis/.lake/build/doc _site/docs
       - name: Remove unnecessary lake files from documentation in `_site/docs`
         run: |
           find _site/docs -name "*.trace" -delete

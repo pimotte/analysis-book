@@ -18,6 +18,7 @@ def theme : Theme := { Theme.default with
         <body>
           <header>
             <div class="inner-wrap">
+            <a href="./docs/">{{"Documentation"}}</a>
             {{ ← topNav }}
             </div>
           </header>

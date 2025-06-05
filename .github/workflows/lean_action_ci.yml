@@ -17,11 +17,19 @@ jobs:
         working-directory: ./analysis-book
         run: |
           lake exe analysis-book
+      - name: build docs
+        working-directory: ./analysis
+        run: |
+          lake exe Analysis:docs
+      - name: Copy docs to analysis-book
+        working-directory: ./analysis-book
+        run: |
+          cp -r ../.lake/build/doc _site/docs
       - name: Upload website
         working-directory: ./analysis-book
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_out/html-multi'
+          path: '_site'
   deploy:
     # Add a dependency to the build job
     needs: build

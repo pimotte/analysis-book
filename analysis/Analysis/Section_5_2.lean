@@ -15,14 +15,14 @@ Main constructions and results of this section:
 -/
 
 
-abbrev Rat.close_seq (ε: ℚ) (a b: Chapter5.Sequence) : Prop := ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a.extend n) (b.extend n)
+abbrev Rat.close_seq (ε: ℚ) (a b: Chapter5.Sequence) : Prop := ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a n) (b n)
 
 abbrev Rat.eventually_close (ε: ℚ) (a b: Chapter5.Sequence) : Prop := ∃ N, ε.close_seq (a.from N) (b.from N)
 
 namespace Chapter5
 
 /-- Definition 5.2.1 ($ε$-close sequences) -/
-lemma Rat.close_seq_def (ε: ℚ) (a b: Sequence) : ε.close_seq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a.extend n) (b.extend n) := by rfl
+lemma Rat.close_seq_def (ε: ℚ) (a b: Sequence) : ε.close_seq a b ↔ ∀ n, n ≥ a.n₀ → n ≥ b.n₀ → ε.close (a n) (b n) := by rfl
 
 /-- Example 5.2.2 -/
 example : (0.1:ℚ).close_seq ((fun n:ℕ ↦ ((-1)^n:ℚ)):Sequence)
@@ -51,10 +51,10 @@ example : (0.01:ℚ).eventually_close ((fun n:ℕ ↦ (1:ℚ)+10^(-(n:ℤ)-1)):S
 
 /-- Definition 5.2.6 (Equivalent sequences) -/
 abbrev Sequence.equiv (a b: ℕ → ℚ) : Prop :=
-  ∃ (ε:ℚ), ε > 0 → ε.eventually_close (a:Sequence) (b:Sequence)
+  ∀ ε > (0:ℚ), ε.eventually_close (a:Sequence) (b:Sequence)
 
 /-- Definition 5.2.6 (Equivalent sequences) -/
-lemma Sequence.equiv_def (a b: ℕ → ℚ) : equiv a b ↔ ∃ (ε:ℚ), ε > 0 → ε.eventually_close (a:Sequence) (b:Sequence) := by rfl
+lemma Sequence.equiv_def (a b: ℕ → ℚ) : equiv a b ↔ ∀ (ε:ℚ), ε > 0 → ε.eventually_close (a:Sequence) (b:Sequence) := by rfl
 
 /-- Definition 5.2.6 (Equivalent sequences) -/
 lemma Sequence.equiv_iff (a b: ℕ → ℚ) : equiv a b ↔ ∀ ε > 0, ∃ N, ∀ n ≥ N, |a n - b n| ≤ ε := by sorry

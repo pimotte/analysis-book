@@ -18,7 +18,13 @@ def theme : Theme := { Theme.default with
         <body>
           <header>
             <div class="inner-wrap">
-            <a href="./docs/">{{"Documentation"}}</a>
+
+          <nav class="top" role="navigation">
+            <ol>
+              <li><a href="/docs">s!"{Documentation}"</a></li>
+              {{ ← dirLinks (← read).site }}
+            </ol>
+          </nav>
             {{ ← topNav }}
             </div>
           </header>

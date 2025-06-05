@@ -24,10 +24,10 @@ jobs:
         run: |
           cp -r ../.lake/build/doc _site/docs
       - name: Upload website
-        working-directory: ./analysis-book
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
+          working-directory: ./analysis-book
   deploy:
     # Add a dependency to the build job
     needs: build
@@ -46,6 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
-        working-directory: ./analysis-book
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          working-directory: ./analysis-book

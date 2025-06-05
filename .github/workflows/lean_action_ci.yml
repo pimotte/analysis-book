@@ -1,4 +1,4 @@
-name: Lean Action CI
+name: Build documentation
 
 on:
   push:
@@ -43,10 +43,14 @@ jobs:
 
       - name: Build book
         run: |
-          lake exe analysis-book
+          ~/.elan/bin/lake exe analysis-book
       - name: Copy docs to analysis-book
         run: |
           cp -r ../.lake/build/doc _site/docs
+      - name: Remove unnecessary lake files from documentation in `_site/docs`
+        run: |
+          find _site/docs -name "*.trace" -delete
+          find _site/docs -name "*.hash" -delete
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
